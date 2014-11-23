@@ -24,9 +24,12 @@
     "gulp-jasmine": "^1.0.1",
     "gulp-jshint": "^1.9.0",
     "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.1",
     "react": "^0.12.1",
     "reactify": "^0.17.1",
+    "streamqueue": "^0.1.1",
     "uglify": "^0.1.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.1.1"
   }
 }
