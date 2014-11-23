@@ -1,0 +1,23 @@
+{
+  "name": "node4fe",
+  "version": "1.0.0",
+  "homepage": "https://github.com/philmander/node4fe",
+  "authors": [
+    "Phil Mander <philip.mander@gmail.com>"
+  ],
+  "description": "Example project to accompany my talk on 'Streamlining Frontend Development with Node.JS'",
+  "main": "lib/index.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
