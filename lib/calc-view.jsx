@@ -1,5 +1,5 @@
+//var React = window.React;
 var React = require('react');
-
 
 var CalcView = function(opts) {
 };
