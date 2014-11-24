@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jasmine = require('gulp-jasmine');
+var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var watchify = require('watchify');
@@ -25,6 +26,12 @@ gulp.task('lint', function() {
 gulp.task('test', [ 'lint' ], function () {
     return gulp.src('./spec/**/*-spec.js')
         .pipe(jasmine());
+});
+
+gulp.task('sass', function () {
+    gulp.src('./styles/calc.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('./styles'));
 });
 
 //distribute (uglfiy and concat)
@@ -62,6 +69,7 @@ gulp.task('watch', function() {
     bundler.on('update', rebundle);
 
     function rebundle() {
+        gulp.watch('./styles/*.scss', ['sass']);
         return bundler.bundle()
             .pipe(source('calc.js'))
             .pipe(alert('Welcome to the calculator! (built by watch)'))

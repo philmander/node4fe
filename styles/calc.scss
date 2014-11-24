@@ -1,0 +1,65 @@
+@import 'fonts';
+@import 'util';
+
+@media screen and (min-width: 800px) {
+  .calc {
+    width: 800px;
+  }
+}
+
+body {
+  background: #333;
+}
+
+.calc {
+  margin: auto;
+  padding: 50px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%);
+  font-family: Orbitron, Consolas, monospace;
+}
+.calc .display {
+  height: 40px;
+  padding: 20px;
+  font-size: 50px;
+  background-color: rgba(129, 160, 0, 0.97);
+  box-shadow: inset 0 0 32px 2px #000;
+  margin-bottom: 30px;
+  text-align: right;
+  overflow: hidden;
+}
+.calc button {
+  float: left;
+  width: 25%;
+  font-size: 24px;
+  font-weight: bold;
+  border: 2px solid #696969;
+  background: #dedede;
+  height: 50px;
+  line-height: 20px;
+  border-radius: 0;
+  font-family: Orbitron, Consolas, monospace;
+  cursor: pointer;
+}
+.calc button:hover {
+  background-color: #cdcdcd;
+}
+.calc button:active {
+  background-color: #b5b5b5;
+}
+.calc .clearkey {
+  float: right;
+  color: #fff;
+  background: #D2413A;
+  margin-bottom: 30px;
+}
+.calc .clearkey:hover {
+  background: #f1423b;
+}
+.calc .opkey {
+  color: #fff;
+  background: #444444;
+}
+.calc .opkey:hover {
+  background: #5d5d5d;
+}
