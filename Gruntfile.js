@@ -1,13 +1,5 @@
 var react = require('grunt-react');
 
-grunt.loadNpmTasks('grunt-jasmine-node');
-grunt.loadNpmTasks('grunt-contrib-jshint');
-grunt.loadNpmTasks('grunt-contrib-clean');
-grunt.loadNpmTasks('grunt-libsass');
-grunt.loadNpmTasks('grunt-browserify');
-grunt.loadNpmTasks('grunt-contrib-watch');
-grunt.loadNpmTasks('grunt-concurrent');
-
 module.exports = function(grunt) {
 
     grunt.initConfig({
@@ -36,7 +28,8 @@ module.exports = function(grunt) {
         },
         browserify: {
             main: {
-                src: ['./lib/index.js'],                dest: './dist/calc.js',
+                src: ['./lib/index.js'],
+                dest: './dist/calc.js',
                 options: {
                     standalone: ['calc'],
                     transform:  [ react.browserify ]
@@ -70,6 +63,15 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['jshint']);
+    grunt.loadNpmTasks('grunt-jasmine-node');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-libsass');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-concurrent');
+
+    grunt.registerTask('default', ['clean', 'jshint', 'jasmine_node', 'libsass', 'browserify']);
+    grunt.registerTask('watchall', ['concurrent']);
 
 };

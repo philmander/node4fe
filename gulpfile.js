@@ -50,14 +50,6 @@ gulp.task('stream-test', function () {
     .pipe(gulp.dest('./dist'));
 });
 
-//distribute (uglfiy and concat)
-gulp.task('dist', [ 'test', 'clean' ], function () {
-    return gulp.src('./spec/**/*-spec.js')
-        .pipe(uglify())
-        .pipe(concat())
-        .pipe(gulp.dest('./dist/calc.min.js'));
-});
-
 //package with browserify
 gulp.task('package', [ 'test', 'clean' ], function() {
     return browserify({
@@ -79,6 +71,7 @@ gulp.task('watch', function() {
         standalone: "calc"
     }), watchify.args);
 
+    //uncomment to use react as a browser dependency
     //bundler.ignore('react');
     bundler.transform(reactify);
 
