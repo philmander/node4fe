@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jasmine = require('gulp-jasmine');
 var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
