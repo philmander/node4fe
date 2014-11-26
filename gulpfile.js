@@ -6,9 +6,10 @@ var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
-var source = require('vinyl-source-stream');
+var vinylStream = require('vinyl-source-stream');
 var del = require('del');
 var alert = require('./gulp/gulp-alert');
+var stream = require('stream');
 
 gulp.task('clean', function () {
     return del('./dist/**/*.*');
@@ -34,6 +35,21 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./styles'));
 });
 
+
+gulp.task('stream-test', function () {
+
+    //create a text stream
+    var str = new stream.Readable();
+    str.push('hello world');
+    str.push(null);
+
+    //convert stream to vinyl
+    str.pipe(vinylStream('testy.txt'))
+
+    //send to file
+    .pipe(gulp.dest('./dist'));
+});
+
 //distribute (uglfiy and concat)
 gulp.task('dist', [ 'test', 'clean' ], function () {
     return gulp.src('./spec/**/*-spec.js')
@@ -51,7 +67,7 @@ gulp.task('package', [ 'test', 'clean' ], function() {
     //bundler.ignore('react');
     .transform(reactify)
     .bundle()
-    .pipe(source('calc.js'))
+    .pipe(vinylStream('calc.js'))
     .pipe(alert('Welcome to the calculator!'))
     .pipe(gulp.dest('./dist'));
 });
@@ -68,10 +84,12 @@ gulp.task('watch', function() {
 
     bundler.on('update', rebundle);
 
+    gulp.watch('./styles/*.scss', ['sass']);
+
     function rebundle() {
-        gulp.watch('./styles/*.scss', ['sass']);
+
         return bundler.bundle()
-            .pipe(source('calc.js'))
+            .pipe(vinylStream('calc.js'))
             .pipe(alert('Welcome to the calculator! (built by watch)'))
             .pipe(gulp.dest('./dist'));
     }

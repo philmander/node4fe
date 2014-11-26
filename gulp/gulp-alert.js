@@ -1,5 +1,5 @@
 /**
- * This is an example gulp plugin. It does something completely useless; prepending an javascript alert
+ * This is an example gulp plugin. It does something completely useless; appending a javascript alert
  *
  * This plugin is written using the Node.JS stream interfaces to demonstrate, without distraction,
  * how Gulp plugins use Node streams. However, in practice you would probably want to use the through2 module,
@@ -41,7 +41,7 @@ module.exports = function(opt) {
 };
 
 /**
- * The transform function
+ * Overrides the _transform function
  * @param file
  * @param encoding
  * @param callback
@@ -51,18 +51,19 @@ AlertStream.prototype._transform = function(file, encoding, callback) {
 
     var toAppend = new Buffer('alert(\'' + this.message + '\');');
 
+    //is the file a stream
     if (file.isStream()) {
         //create a readable stream which streams the text to append
         var appendStream = new stream.Readable();
-        appendStream._read = function() {
-            this.push(toAppend);
-            this.push(null);
-        };
+        appendStream.push(toAppend);
+        appendStream.push(null);
         //merge the streams using streamqueue
         file.contents = new StreamQueue(
             file.contents,
             appendStream
         );
+
+    //is the file buffered?
     } else if (file.isBuffer()) {
         file.contents = Buffer.concat([toAppend, file.contents]);
     }
