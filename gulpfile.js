@@ -7,7 +7,7 @@ var watchify = require('watchify');
 var reactify = require('reactify');
 var vinylStream = require('vinyl-source-stream');
 var del = require('del');
-var alert = require('./gulp/gulp-alert');
+var appendAlert = require('./gulp/gulp-alert');
 var stream = require('stream');
 
 gulp.task('clean', function () {
@@ -18,8 +18,8 @@ gulp.task('clean', function () {
 gulp.task('lint', function() {
     return gulp.src('lib/**/*.js')
         .pipe(jshint())
-        .pipe(jshint.reporter("default"))
-        .pipe(jshint.reporter("fail"));
+        .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'));
 });
 
 //jasmine
@@ -50,16 +50,16 @@ gulp.task('stream-test', function () {
 });
 
 //package with browserify
-gulp.task('package', [ 'test', 'clean' ], function() {
+gulp.task('package', [ 'sass', 'test', 'clean' ], function() {
     return browserify({
         entries: './lib/index.js',
-        standalone: "calc"
+        standalone: 'calc'
     })
     //bundler.ignore('react');
     .transform(reactify)
     .bundle()
     .pipe(vinylStream('calc.js'))
-    .pipe(alert('Welcome to the calculator!'))
+    .pipe(appendAlert('Welcome to the calculator!'))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -67,7 +67,7 @@ gulp.task('package', [ 'test', 'clean' ], function() {
 gulp.task('watch', function() {
     var bundler = watchify(browserify({
         entries: './lib/index.js',
-        standalone: "calc"
+        standalone: 'calc'
     }), watchify.args);
 
     //uncomment to use react as a browser dependency
@@ -82,7 +82,7 @@ gulp.task('watch', function() {
 
         return bundler.bundle()
             .pipe(vinylStream('calc.js'))
-            .pipe(alert('Welcome to the calculator! (built by watch)'))
+            .pipe(appendAlert('Welcome to the calculator! (built by watch)'))
             .pipe(gulp.dest('./dist'));
     }
 
